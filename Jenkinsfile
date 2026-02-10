@@ -11,5 +11,10 @@ pipeline {
                     sh 'mvn clean package'
               }
           }
+               stage("deploy") {
+                  steps {
+                    sh 'cp /var/lib/jenkins/workspace/pipeline/target/*.war /opt/tomcat/webapps/'
+              }
+          }
       }
 }
