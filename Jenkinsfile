@@ -13,7 +13,7 @@ pipeline {
           }
                stage("deploy") {
                   steps {
-                    sh 'sudo cp /var/lib/jenkins/workspace/pipeline/target/petshop.war /opt/tomcat/webapps/'
+                    sh 'sudo cp /var/lib/jenkins/workspace/pipeline/target/*.war /opt/tomcat/webapps/'
               }
           }
       }
