@@ -13,7 +13,7 @@ pipeline {
           }      
      stage("deploy to tomcat") {
                   steps {
-                      sh 'cp /var/lib/jenkins/workspace/jenkins/target/*.war /opt/tomcat/webapps/'
+                      sh 'cp /home/ec2-user/MAVEN/MAVEN/workspace/pipeline-1/target/petshop.war /home/ec2-user/tomcat/webapps/'
               }
           }      
       }
