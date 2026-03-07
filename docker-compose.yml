@@ -11,4 +11,4 @@ services:
     image: nginx
     container_name: DEVARA
     ports:
-       - "8081:80"
+       - "8083:80"
