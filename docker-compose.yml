@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web1:
+    image: durgaprasaduniq/prasad:v2
+    container_name: cont1
+    ports:
+      - "8090:8080"
+
+  web2:
+    image: nginx
+    container_name: cont2
+    ports:
+       - "8080:80"
