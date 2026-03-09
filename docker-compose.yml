@@ -5,7 +5,7 @@ services:
     image: durgaprasaduniq/prasad:v2
     container_name: NTR
     ports:
-      - "8090:8080"
+      - "8091:8080"
 
   web2:
     image: nginx
