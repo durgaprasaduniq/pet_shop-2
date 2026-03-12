@@ -1,0 +1,21 @@
+version: "3"
+services:
+
+  web:
+    image: nginx
+    container_name: devops
+    ports:
+       - "8081:80"
+
+  web1:
+    image: tomcat
+    container_name: devops-1
+    ports:
+       - "8082:8080"
+
+  web2:
+    image: durgaprasaduniq/prasad:v2
+    container_name: devops-2
+    ports:
+       - "8090:8080"
+
