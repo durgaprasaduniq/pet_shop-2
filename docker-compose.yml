@@ -21,7 +21,7 @@ services:
 
   web3:
     image: durgaprasaduniq/frontend-app:v2
-    container_name: devops-3
+    container_name: devops-4
     ports:
        - "8084:30007"    
 
