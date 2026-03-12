@@ -5,7 +5,7 @@ services:
     image: nginx
     container_name: devops
     ports:
-       - "8081:80"
+       - "8083:80"
 
   web1:
     image: tomcat
