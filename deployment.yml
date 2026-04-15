@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-cont
+  labels:
+    env: dev
+    app: tomcat
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      env: dev
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        env: dev
+        app: tomcat
+    spec:
+      containers:
+        - name: my-cont
+          image: tomcat:11
+          ports:
+            - containerPort: 8080
