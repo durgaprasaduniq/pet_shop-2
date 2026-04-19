@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: my-cont
-          image: tomcat:11
+          image: durgaprasad/my-mine:v3
           ports:
             - containerPort: 8080
