@@ -35,9 +35,9 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 WORKDIR /opt
 
 # Install Tomcat
-RUN wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz && \
-    tar -xzf apache-tomcat-9.0.89.tar.gz && \
-    mv apache-tomcat-9.0.89 tomcat
+RUN wget https://archive.apache.org/dist/tomcat/tomcat-11/v11.0.0/bin/apache-tomcat-11.0.0.tar.gz && \
+    tar -xzf apache-tomcat-11.0.0.tar.gz && \
+    mv apache-tomcat-11.0.0 tomcat
 
 # Copy WAR from build stage
 COPY --from=build /app/pet_shop-2/target/*.war /opt/tomcat/webapps/ROOT.war
