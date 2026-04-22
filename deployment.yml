@@ -21,4 +21,5 @@ spec:
         - name: my-cont
           image: durgaprasaduniq/my-mine:v3
           ports:
-            - containerPort: 8080
+            - port: 8080
+              targetPort: 8080
