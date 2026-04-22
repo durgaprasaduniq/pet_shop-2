@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: my-cont
-          image: durgaprasaduniq/depo:v1
+          image: durgaprasaduniq/my-mine:v3
           ports:
             - containerPort: 8080
