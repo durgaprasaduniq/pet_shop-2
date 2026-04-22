@@ -1,5 +1,7 @@
 FROM amazonlinux
-RUN yum upgrade && yum install git -y && yum install maven -y wget tar zip
+RUN yum upgrade && yum install git -y && yum install maven java-17 -y wget tar zip
+ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+ENV PATH=$JAVA_HOME/bin:$PATH
 WORKDIR /opt
 RUN git clone https://github.com/durgaprasaduniq/pet_shop-2.git
 RUN cd pet_shop-2 && mvn clean package
