@@ -1,60 +1,59 @@
 pipeline {
-    agent any 
-
+    agent { label "label"
+}
     environment {
-        IMAGE_NAME = "durgaprasaduniq/app-1"
-        TAG = "V2"
-        DOCKER_USER = "durgaprasaduniq"
-        DOCKER_PASS = ""
-        AWS_DEFAULT_REGION = "ap-south-1"
-        CLUSTER_NAME = "my-cluster-1"
+        IMAGE_NAME= "durgaprasaduniq/gc"
+        TAG= "mine"
+        DOCKER_USER= "durgaprasaduniq"
+        DOCKER_PASSWD= ""
+        CLUSTER_NAME= "my-cluster"
+        AWS_REGION= "us-east-1"
     }
-
-    stages {
-
-        stage("Clone Repo") {
-            steps {
-                git branch: 'main', url: 'https://github.com/durgaprasaduniq/pet_shop-2.git'
-            }
-        }
-
-        stage("Build Docker Image") {
-            steps {
-                sh 'docker build -t durgaprasaduniq/app-1:V2 -f Dockerfile .'
-            }
-        }
-
-        stage("Docker Login & Push") {
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'docker-id',
+       stages{
+           stage("git checkout"){
+               steps {
+                   git 'https://github.com/durgaprasaduniq/nodejs-app-mss.git'
+               }
+           }
+           stage("build docker ") {
+               steps{
+                   sh 'docker build -t $IMAGE_NAME:$TAG -f Dockerfile .'
+                  }
+              }  
+              stage("trivy scan"){
+                  steps{
+                      sh 'trivy image --severity HIGH,CRITICAL --exit-code 0 $IMAGE_NAME:$TAG'
+                  }
+              }
+              
+               stage("docker login"){
+                   steps {
+                        withCredentials([usernamePassword(
+                    credentialsId: 'docker-creds',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh '''
-                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                    docker push $IMAGE_NAME:$TAG
-                    '''
-                }
-            }
-        }
-
-        stage("Connect to EKS") {
-            steps {                                                                                  
-                sh '''                                                                                                                           
-                aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $CLUSTER_NAME                    
-                '''
-            }                                                                                            
-        }                                 
-
-        stage("Deploy to EKS") {
-            steps {
-                sh '''
-                kubectl apply -f /var/lib/jenkins/my-deployment.yml
-                kubectl apply -f /var/lib/jenkins/service.yml
-                '''
-            }
-        }
-    }
-}
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                      }
+                   }
+               }
+                      stage("docker push"){
+                          steps {
+                              sh 'docker push $IMAGE_NAME:$TAG'
+                          }
+                      }
+                      stage("connect to eks"){
+                          steps {
+                              sh 'aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_REGION'
+                          }
+                      }
+                    stage("deploy to server"){
+                        steps{
+                            sh '''
+                             kubectl apply -f deployment.yml
+                             kubectl apply -f service.yml
+                             '''
+                        }
+                    }
+       }
 }
