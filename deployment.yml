@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: my-cont
-          image: durgaprasaduniq/mentor:newone
+          image: durgaprasaduniq/project:newone
           ports:
             - containerPort: 8080
               
